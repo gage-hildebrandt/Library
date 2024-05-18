@@ -18,7 +18,6 @@ function addBookToLibrary(title, author, pages, read) {
 
 let newBookbtn = document.querySelector('#new-book-btn');
 newBookbtn.addEventListener('click', function() {
-    alert('HELLO WORLD');
-    // let newBookForm = document.querySelector('#new-book-form');
-    // newBookForm.style.display = block;
+    let newBookForm = document.querySelector('#new-book-form');
+    newBookForm.style.display = 'block';
 })
