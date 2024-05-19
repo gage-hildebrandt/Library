@@ -5,21 +5,42 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
+}
 
-    // this.info = function() {
-    //     let readStatusText = this.readStatus ? 'read' : 'not read yet';
-    //     return `${this.title} by ${this.author}, ${this.pageCount} pages, ${readStatusText}`;
-    // };
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+}
+
+function toggleRead(index) {
+    myLibrary(index).toggleRead();
+    render();
 }
 
 function render() {
     let libraryEl = document.querySelector('#library');
+    libraryEl.innerHTML = '';
     for (let i = 0; i < myLibrary.length; i++) {
         let book = myLibrary[i];
         let bookEl = document.createElement('div');
-        bookEl.innerHTML = `<p>${book.title}</p>`
+        bookEl.setAttribute('class', 'book-card');
+        bookEl.innerHTML = `
+        <div class='card-header'>
+            <h3 class='card-title'>${book.title}</h3>
+            <h5 class='author'>${book.author}</h5>
+        </div>
+        <div class='card-body'>
+            <p>${book.pages} pages</p>
+            <p class='read-status'>${book.read ? 'Read' : 'Not Read Yet'}</p>
+            <button class='remove-btn' onclick='removeBook(${i})'>Remove</button>
+        </div>
+        `;
         libraryEl.appendChild(bookEl);
     }
+}
+
+function removeBook(index) {
+    myLibrary.splice(index, 1);
+    render();
 }
 
 function addBookToLibrary() {
